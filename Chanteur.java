@@ -1,5 +1,5 @@
 package poo;
 
-public class Chanteur {
-
+public class Chanteur extends Artiste {
+	private Instrument tab[];
 }
