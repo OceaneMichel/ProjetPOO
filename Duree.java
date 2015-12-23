@@ -12,24 +12,26 @@ public class Duree implements Comparable<Duree>{
 	private int sec;
 	
 	public Duree(int m, int s){
-		if(m<0)	min = Math.abs(m);
+		// Je sais pas pourquoi mais dans ma tête ça va mieux comme ça, à toi de voir ce qui est le mieux
+		if(m<0)	min = 0;
 		else	min = m;
 		
 		if(s>=60){	
 			sec = s%60;
 			min += s/60;
 		}
+		// else if(s<0) sec=?, min=?
 		else 	sec = s;
 	}
 	
 	public float comparer(Duree d){
 		float resultat;
-		int d_com = d.min - min;
-		int d_cos = d.sec - sec;
-		d_com = Math.abs(d_com);
-		d_cos = Math.abs(d_cos);
+		int d_com = Math.abs(d.min - min);
+		int d_cos = Math.abs(d.sec - sec);
 		
 		//On arrondie le nombre de minutes au supérieur si le nombre de sec > 30
+		// plus tard si on peut faire une comparaison plus précise en utilisant vraiment
+		// les différences entre chaque ça pourrait être pas mal
 		if(d_cos>30)	d_com++;
 		
 		if(d_com == 0)	resultat = 1;
