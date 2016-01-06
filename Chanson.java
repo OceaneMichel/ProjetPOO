@@ -1,31 +1,18 @@
 package poo;
 
+import java.sql.Time;
+
 public class Chanson {
 	private int id;
-	private String nom;
-	private Style tab[];
+	private String titre;
+	private String artiste;
+	private String style1;
+	private String style2;
+	private String style3;
+	private String theme;
+	private Time duree;
+	private int rythme;
+	private String paroles;
+	private Instrument instrument;
 	
-	public int getId() {
-		return id;
-	}
-	
-	public void setId(int id) {
-		this.id = id;
-	}
-	
-	public String getNom() {
-		return nom;
-	}
-	
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-	
-	public Style[] getTab() {
-		return tab;
-	}
-	
-	public void setTab(Style tab[]) {
-		this.tab = tab;
-	}
 }

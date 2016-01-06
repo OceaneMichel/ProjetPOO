@@ -5,21 +5,19 @@ package poo;
  * @author oceane
  *
  */
-public class Sous_style extends Style implements Comparable<Style>{
-	private int num_fils;
-	private Style pere;
+public class Sous_style extends Genre implements Comparable<Genre>{
+	private Genre pere;
 	/**
 	 * Constructeur de sous_style
 	 * @param n le nom du style
 	 * @param i le numéro du fils (et son rapport d proximité par rapport au Style père)
 	 */
-	public Sous_style(String n, int i, Style p){
+	public Sous_style(String n){
 		super(n);
-		this.num_fils = i;
-		this.pere = p;
+		//this.pere = p;
 	}
 	
-	public float comparer(Style s){
+	public float comparer(Genre s){
 		return 0;
 	}
 

@@ -1,18 +1,23 @@
 package poo;
 
+import java.lang.*;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.Statement;
 public class Main {
 
+	
+	
 	public static void main(String[] args) {
-		Chanteur chan = new Chanteur(1, 1, 3, "Lavoine", "Marc");
-		Instrument guitare = new Instrument("guitare", 1);
-		chan.setTab(guitare);
-		chan.setTab(guitare);
-		chan.setTab(guitare);
-		chan.setTab(guitare);
-		System.out.println(chan.getPrenom());
-		System.out.println(chan.getNum());
-		System.out.println(chan.getId());
-		chan.afficher_instruments();
+		
+		ArrayList<Genre> liste_genres = init.recuperer_genres();
+		liste_genres.get(5).afficher();
+		
+		ArrayList<Artiste> liste_artistes = init.recuperer_artistes();
 	}
 
 }
