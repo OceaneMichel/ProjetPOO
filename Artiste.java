@@ -4,7 +4,13 @@ public class Artiste {
 	private int id;
 	private String nom;
 	private String prenom;
-	
+	////////////////////////////////////////////
+	///huyechuerbchjbfhbfchjbfdhjb
+	///
+	//
+	//
+	//
+	//
 	public Artiste(){}
 	
 	public Artiste(int id_a, String n, String p){
