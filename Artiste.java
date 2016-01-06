@@ -10,6 +10,15 @@ public class Artiste {
 	//
 	//
 	//
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//
 	public Artiste(){}
 	
@@ -18,7 +27,6 @@ public class Artiste {
 		nom=n;
 		prenom=p;
 	}
-	
 	public String getPrenom() {
 		return prenom;
 	}
