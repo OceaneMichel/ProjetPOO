@@ -82,9 +82,9 @@ public class init {
 		blues.set_distance(rap, 759);
 		blues.set_distance(reggae, 582);
 		// LISTE SOUS-STYLES - BLUES
-		blues.add_sstyle(new Sous_style<Genre>("acoustic_blues",blues));
-		blues.add_sstyle(new Sous_style<Genre>("electric_blues", blues));
-		blues.add_sstyle(new Sous_style<Genre>("country_blues", blues));
+		blues.add_sstyle(new Sous_style("acoustic_blues",1,blues));
+		blues.add_sstyle(new Sous_style("electric_blues",2, blues));
+		blues.add_sstyle(new Sous_style("country_blues",3, blues));
 		
 		// LISTE GENRES : ID 2 - ENFANT 
 		
@@ -102,9 +102,9 @@ public class init {
 		enfant.set_distance(reggae, 407);
 		
 		// LISTE SOUS-STYLES - ENFANT
-		enfant.add_sstyle(new Sous_style<Genre>("capoeira" ,enfant));
-		enfant.add_sstyle(new Sous_style<Genre>("education",enfant));
-		enfant.add_sstyle(new Sous_style<Genre>("comique",enfant));
+		enfant.add_sstyle(new Sous_style("capoeira" ,1,enfant));
+		enfant.add_sstyle(new Sous_style("education",2,enfant));
+		enfant.add_sstyle(new Sous_style("comique",3,enfant));
 
 		// LISTE GENRES : ID 3 - CLASSIQUE
 		
@@ -121,12 +121,12 @@ public class init {
 		classique.set_distance(rap,1212);
 		classique.set_distance(reggae,1139);
 		// LISTE SOUS-STYLES - BLUES
-		classique.add_sstyle(new Sous_style<Genre>("ballet",classique));
-		classique.add_sstyle(new Sous_style<Genre>("concerto",classique));
-		classique.add_sstyle(new Sous_style<Genre>("symphony",classique));
-		classique.add_sstyle(new Sous_style<Genre>("renaissance",classique));
-		classique.add_sstyle(new Sous_style<Genre>("orchestral",classique));
-		classique.add_sstyle(new Sous_style<Genre>("opera",classique));
+		classique.add_sstyle(new Sous_style("ballet",1,classique));
+		classique.add_sstyle(new Sous_style("concerto",2,classique));
+		classique.add_sstyle(new Sous_style("symphony",3,classique));
+		classique.add_sstyle(new Sous_style("renaissance",4,classique));
+		classique.add_sstyle(new Sous_style("orchestral",5,classique));
+		classique.add_sstyle(new Sous_style("opera",6,classique));
 		
 		// LISTE GENRES : ID 4 - COUNTRY
 		
@@ -143,9 +143,9 @@ public class init {
 		country.set_distance(rap,877); 
 		country.set_distance(reggae,1063);
 		// LISTE SOUS-STYLES - COUNTRY
-		country.add_sstyle(new Sous_style<Genre>("country_pop",country));
-		country.add_sstyle(new Sous_style<Genre>("progressive_country",country));
-		country.add_sstyle(new Sous_style<Genre>("traditional_country",country));
+		country.add_sstyle(new Sous_style("country_pop",1,country));
+		country.add_sstyle(new Sous_style("progressive_country",2,country));
+		country.add_sstyle(new Sous_style("traditional_country",3,country));
 
 		
 		// LISTE GENRES : ID 5 - ELECTRONIC
@@ -163,9 +163,9 @@ public class init {
 		electronic.set_distance(rap,543); 
 		electronic.set_distance(reggae,758); 
 		// LISTE SOUS-STYLES - ELECTRONIC
-		electronic.add_sstyle(new Sous_style<Genre>("house",electronic));
-		electronic.add_sstyle(new Sous_style<Genre>("techno",electronic));
-		electronic.add_sstyle(new Sous_style<Genre>("trance",electronic));
+		electronic.add_sstyle(new Sous_style("house",1,electronic));
+		electronic.add_sstyle(new Sous_style("techno",2,electronic));
+		electronic.add_sstyle(new Sous_style("trance",3,electronic));
 
 
 		// LISTE GENRES : ID 6 - FOLK
@@ -183,8 +183,8 @@ public class init {
 		folk.set_distance(rap,1018);
 		folk.set_distance(reggae,1013);
 		// LISTE SOUS-STYLES - FOLK
-		folk.add_sstyle(new Sous_style<Genre>("contemporary_folk",folk));
-		folk.add_sstyle(new Sous_style<Genre>("traditional_folk",folk));
+		folk.add_sstyle(new Sous_style("contemporary_folk",1,folk));
+		folk.add_sstyle(new Sous_style("traditional_folk",2,folk));
 
 		// LISTE GENRES : ID 7 - DISCO 
 
@@ -201,7 +201,7 @@ public class init {
 		disco.set_distance(rap, 86);
 		disco.set_distance(reggae, 269);
 		// LISTE SOUS-STYLES - disco
-		disco.add_sstyle(new Sous_style<Genre>("funk",disco));
+		disco.add_sstyle(new Sous_style("funk",1,disco));
 
 		// LISTE GENRES : ID 8 - JAZZ 
 
@@ -218,9 +218,9 @@ public class init {
 		jazz.set_distance(rap, 977);
 		jazz.set_distance(reggae, 822);
 		// LISTE SOUS-STYLES - JAZZ
-		jazz.add_sstyle(new Sous_style<Genre>("classic_jazz",jazz));
-		jazz.add_sstyle(new Sous_style<Genre>("swing",jazz));
-		jazz.add_sstyle(new Sous_style<Genre>("groove",jazz));
+		jazz.add_sstyle(new Sous_style("classic_jazz",1,jazz));
+		jazz.add_sstyle(new Sous_style("swing",2,jazz));
+		jazz.add_sstyle(new Sous_style("groove",3,jazz));
 
 				// LISTE GENRES : ID 9 - POP-ROCK 
 
@@ -237,12 +237,12 @@ public class init {
 		pop_rock.set_distance(rap, 1047);
 		pop_rock.set_distance(reggae, 1230);
 		// LISTE SOUS-STYLES - pop_rock
-		pop_rock.add_sstyle(new Sous_style<Genre>("indie_rock",pop_rock));
-		pop_rock.add_sstyle(new Sous_style<Genre>("heavy_metal",pop_rock));
-		pop_rock.add_sstyle(new Sous_style<Genre>("rock_and_roll",pop_rock));
-		pop_rock.add_sstyle(new Sous_style<Genre>("country_rock",pop_rock));
-		pop_rock.add_sstyle(new Sous_style<Genre>("hard_rock",pop_rock));
-		pop_rock.add_sstyle(new Sous_style<Genre>("dance",pop_rock));
+		pop_rock.add_sstyle(new Sous_style("indie_rock",1,pop_rock));
+		pop_rock.add_sstyle(new Sous_style("heavy_metal",2,pop_rock));
+		pop_rock.add_sstyle(new Sous_style("rock_and_roll",3,pop_rock));
+		pop_rock.add_sstyle(new Sous_style("country_rock",4,pop_rock));
+		pop_rock.add_sstyle(new Sous_style("hard_rock",5,pop_rock));
+		pop_rock.add_sstyle(new Sous_style("dance",6,pop_rock));
 
 		// LISTE GENRES : ID 10 - R&B 
 
@@ -259,8 +259,8 @@ public class init {
 		r_and_b.set_distance(rap, 296);
 		r_and_b.set_distance(reggae, 579);
 		// LISTE SOUS-STYLES - R&B
-		r_and_b.add_sstyle(new Sous_style<Genre>("contemporary_r_and_b",r_and_b));
-		r_and_b.add_sstyle(new Sous_style<Genre>("soul",r_and_b));
+		r_and_b.add_sstyle(new Sous_style("contemporary_r_and_b",1,r_and_b));
+		r_and_b.add_sstyle(new Sous_style("soul",2,r_and_b));
 
 		// LISTE GENRES : ID 11 - RAP 
 
@@ -277,9 +277,9 @@ public class init {
 		rap.set_distance(rap, 1);
 		rap.set_distance(reggae, 113);
 		// LISTE SOUS-STYLES - RAP
-		rap.add_sstyle(new Sous_style<Genre>("alternative_rap",rap));
-		rap.add_sstyle(new Sous_style<Genre>("reggaeton",rap));
-		rap.add_sstyle(new Sous_style<Genre>("hip_hop",rap));
+		rap.add_sstyle(new Sous_style("alternative_rap",1,rap));
+		rap.add_sstyle(new Sous_style("reggaeton",2,rap));
+		rap.add_sstyle(new Sous_style("hip_hop",3,rap));
 
 		// LISTE GENRES : ID 11 - REGGAE 
 
@@ -296,11 +296,11 @@ public class init {
 		reggae.set_distance(rap, 30);
 		reggae.set_distance(reggae, 1);
 		// LISTE SOUS-STYLES - REGGAE
-		reggae.add_sstyle(new Sous_style<Genre>("dancehall",reggae));
-		reggae.add_sstyle(new Sous_style<Genre>("ragga",reggae));
-		reggae.add_sstyle(new Sous_style<Genre>("reggae_pop",reggae));
-		reggae.add_sstyle(new Sous_style<Genre>("souns_system",reggae));
-		reggae.add_sstyle(new Sous_style<Genre>("ska",reggae));
+		reggae.add_sstyle(new Sous_style("dancehall",1,reggae));
+		reggae.add_sstyle(new Sous_style("ragga",2, reggae));
+		reggae.add_sstyle(new Sous_style("reggae_pop",3, reggae));
+		reggae.add_sstyle(new Sous_style("souns_system",4, reggae));
+		reggae.add_sstyle(new Sous_style("ska",5, reggae));
 	
 		liste.set(0, blues);
 		liste.set(1, enfant);
