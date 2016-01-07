@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class Genre implements Comparable<Genre> {
 	private int dist_genres[]; // Détermine la distance entre les genres
+	private Genre pere;
 	public ArrayList<Sous_style> fils;
 	protected String nom;
 	protected int id;
@@ -14,6 +15,7 @@ public class Genre implements Comparable<Genre> {
 	 * @param n nom du Genre
 	 */
 	public Genre(String n){
+		pere = null;
 		nom = n;
 		fils = new ArrayList<Sous_style>();
 	}
@@ -24,7 +26,8 @@ public class Genre implements Comparable<Genre> {
 	 * @param i indice du Genre
 	 */
 	public Genre(String n, int i){
-		dist_genres = new int[100];
+		pere = null;
+		dist_genres = new int[11];
 		nom = n;
 		id = i;
 		dist_genres[id] = 0;
@@ -70,12 +73,15 @@ public class Genre implements Comparable<Genre> {
 		}
 		System.out.print("\n\n");
 	}
-	
+	public boolean est_genre(){
+		return (pere == null);
+	}
 
 	//--- COMPARAISON ---
 	public float comparer(Genre s){
 		return this.dist_genres[s.id];
 	}
+	
 	
 	public float comparer(Sous_style s){
 		return 0;
