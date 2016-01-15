@@ -3,8 +3,8 @@ package poo;
 import java.util.ArrayList;
 
 
-public class Genre  implements Comparable<Genre> {
-	private int dist_genres[]; // Détermine la distance entre les genres
+public class Genre extends Style implements Comparable<Genre> {
+	public int dist_genres[]; // Détermine la distance entre les genres
 	public Genre pere;
 	public ArrayList<Style> fils;
 	public String nom;
@@ -15,30 +15,22 @@ public class Genre  implements Comparable<Genre> {
 	 * @param n nom du Genre
 	 */
 	public Genre(String n){
+		super(n, 0, null);
+		dist_genres = new int[100];
+
 		pere = null;
 		nom = n;
 		fils = new ArrayList<Style>();
 	}
 	
-	/**
-	 * Constructeur par recopie :
-	 */
-	public Genre(Genre g){
-		pere = null;
-		nom = g.nom;
-		fils = new ArrayList<Style>();
-		int i;
-		for(i=0; i<g.nb_fils(); i++){
-			fils.add(g.fils.get(i));
-		}
-	}
+
 	/**
 	 * Constructeur de Genre n°2
 	 * @param n Nom du Genre
 	 * @param i indice du Genre
 	 */
 	public Genre(String n, int i){
-		pere = null;
+		super(n, i, null);
 		dist_genres = new int[100];
 		nom = n;
 		id = i;
@@ -88,35 +80,31 @@ public class Genre  implements Comparable<Genre> {
 		}
 		System.out.print("\n");
 	}
-	public boolean est_genre(){
-		return (pere == null);
-	}
-	
 	/**
 	 * Fonction qui détermine si s est un fils direct du genre
 	 * @param s
 	 * @return
 	 */
-	public boolean a_pour_fils(Style s){
-		boolean res = false;
+	public int a_pour_fils(Style s){
+		int res =-1;
 		int i;
-		for(i=0; i<this.nb_fils(); i++){
-			if(fils.get(i) == s)	res = true;
+		if(nb_fils() != 0 ){
+		
+			for(i=0; i<nb_fils(); i++){
+				if(fils.get(i) == s)	res = this.idSS;
+			}
 		}
 		return res;
 		}
-	/**
-	 * Renvoie 0 si le Genre n'a pas le style comme petit-fils
-	 * Renvoie l'id du père sinon
-	 */
 	public int a_pour_petit_fils(Style s){
-		int res = 0;
+		int res = -1;
 		int i, j;
-		for(i=0; i<this.nb_fils(); i++){
-			for(j=0; j<fils.get(i).nb_fils(); j++){
-				if(fils.get(i).fils.get(j) == s)	res = fils.get(i).idSS;
+		//Ne marche que pour les genres : 
+		if(est_genre()){
+			for(i=0; i<nb_fils(); i++){
+				if(fils.get(i).a_pour_fils(s)!=-1)	res = fils.get(i).a_pour_fils(s);
 			}
-		}
+			}
 		return res;
 		
 	}
@@ -124,29 +112,29 @@ public class Genre  implements Comparable<Genre> {
 	public String get_nomG(){	return nom;}
 
 	//--- COMPARAISON ---
-	public float comparer(Genre s){
-		return this.dist_genres[s.id];
+	public float comparerG(Genre s){
+		return this.dist_genres[s.idSS];
 	}
 	
 	
 	public float comparer(Style s){
-		float result;
-		Genre g = new Genre(s.pere.pere);
-		System.out.println(s.pere.nom);
-		int test = this.a_pour_petit_fils(s);
+		float result=0;
+		int test = a_pour_petit_fils(s); // L'id du pere de s
+
 			//Test si le sous_style est un fils du genre
-		if( this.a_pour_fils(s))	result = (float) s.idSS;
+		if(a_pour_fils(s) != -1)	result = (float) s.idSS;
 		
 			//Test si le sous_style est un petit-fils du genre
-		else if(test!=0)	result = (float) s.idSS + test;
+		else if(test != -1)	result = (float) s.idSS + test;
 		
 		else{// On récupère le Genre du Sous_style et on ajoute la distance au genre
 			result = s.idSS;
-			if(s.pere.pere != null)	result += g.a_pour_petit_fils(s);
-			//result += comparer(g);
-			
-		}
-		
+			if(s.pere.est_genre())	result += dist_genres[s.pere.idSS];
+			else{
+				result += s.pere.idSS;
+				result += dist_genres[s.pere.pere.idSS];
+			}			
+		}		
 		return result;
 	}
 }
