@@ -17,8 +17,8 @@ public class Main {
 		
 		ArrayList<Genre> liste_genres = init.recuperer_arbre();
 		int i;
-		ArrayList<Chanson> liste_chansons = init.recuperer_chansons();
-		for(i=0;i<11;i++)	liste_genres.get(i).afficher();
+		ArrayList<Chanson> liste_chansons = init.recuperer_chansons(liste_genres);
+		for(i=0;i<12;i++)	liste_genres.get(i).afficher();
 		
 		Genre blues = liste_genres.get(0);
 		Genre enfant = liste_genres.get(1);
@@ -32,16 +32,19 @@ public class Main {
 		Genre r_and_b = liste_genres.get(9);
 		Genre rap = liste_genres.get(10);
 		Genre reggae = liste_genres.get(11);
-		
-		//System.out.println(blues.comparer(jazz.fils.get(1).fils.get(0)));
+		System.out.println(pop_rock.fils.get(1).fils.get(0).pere.comparer(blues));
+		System.out.println(pop_rock.fils.get(1).fils.get(0).comparer(blues));
+		System.out.println("COMPARAISON CHANSONS " + liste_chansons.get(0).comparer_styles(liste_chansons.get(1)));
+
 		Style s = jazz.fils.get(1).fils.get(0);
+		System.out.println("Distance Genres égaux: "+ pop_rock.comparerG(pop_rock));// OK
 		System.out.println("Distance Genre - Genre : "+ pop_rock.comparerG(classique));// OK
 		System.out.println("Distance Genre - Sous-Style à lui: "+ rap.comparer(rap.fils.get(1))); // OK
 		System.out.println("Distance Genre - Sous-Sous-Style à lui: "+ rap.comparer(rap.fils.get(2).fils.get(1))); // OK
 		System.out.println("Distance Genre - Sous-Style pas à lui: "+ jazz.comparer(blues.fils.get(0))); // OK
 		System.out.println("Distance Genre - Sous-Sous-Style pas à lui: "+ jazz.comparer(blues.fils.get(0).fils.get(1))); // OK
 		
-		
+		System.out.println("Distance Sous-Sous-Styles égaux: "+ jazz.fils.get(1).fils.get(0).comparer(jazz.fils.get(1).fils.get(0))); // OK
 		System.out.println("Distance Sous-Sous-Style frères: "+ jazz.fils.get(1).fils.get(0).comparer(jazz.fils.get(1).fils.get(1))); // OK
 		System.out.println("Distance Sous-sous styles cousins : "+ electronic.fils.get(0).fils.get(0).comparer(electronic.fils.get(1).fils.get(0)));// OK
 		System.out.println("Distance Sous-sous-styles éloignés : " + rap.fils.get(2).fils.get(1).comparer(pop_rock.fils.get(4).fils.get(0))); // OK
@@ -51,6 +54,7 @@ public class Main {
 		System.out.println("Distance Sous-sous-style - un sous-style cousin : " + folk.fils.get(0).fils.get(0).comparer(folk.fils.get(1))); // OK
 		System.out.println("Distance Sous-sous-style - un sous-style éloigné : " + folk.fils.get(0).fils.get(0).comparer(rap.fils.get(1))); //OK
 		
+		System.out.println("Distance Sous-styles égaux: " + blues.fils.get(0).comparer(blues.fils.get(0))); // OK
 		System.out.println("Distance Sous-style - son fils : " + blues.fils.get(0).comparer(blues.fils.get(0).fils.get(0))); // OK
 		System.out.println("Distance Sous-style - son pere : " + blues.fils.get(2).comparer(blues.fils.get(2).pere) ); // OK
 		System.out.println("Distance Sous-style - sous-style frere : " + jazz.fils.get(0).comparer(jazz.fils.get(2))); // OK
