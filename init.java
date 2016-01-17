@@ -81,7 +81,6 @@ public class init {
 				 * Récupère les sous-styles des Genres et les place dans les arrayList de chaque Genre
 				 * En fonction de l'idPere contenu dans la BDD dans la Table des Styles
 				 */
-				
 				liste.get((rs.getInt("idGrPereS"))-1).fils.get(rs.getInt("idPereS")-1).add_sstyle(new Style(rs.getString("nomSSS"), rs.getInt("ordreS"), (liste.get(rs.getInt("idGrPereS")-1).fils.get((rs.getInt("idPereS")-1)))));
 			}
 		}catch(SQLException e){
@@ -366,7 +365,11 @@ public class init {
  * Fonction qui permet de récupérer les artistes de la BDD et de créer une ArrayList contenant les artistes définis dans la BDD.
  * @return La liste des artistes
  */
-public static ArrayList<Chanson> recuperer_chansons(){
+public static ArrayList<Chanson> recuperer_chansons(ArrayList<Genre> liste_g){
+	int i, j, k;
+	Style st1 = null;
+	Style st2 = null;
+	Style st3 = null;
 	ArrayList<Chanson> liste = new ArrayList<Chanson>();
 	//Information d'accès à la base de données
 	String url = "jdbc:mysql://localhost/Projet_Poo";
@@ -388,7 +391,7 @@ public static ArrayList<Chanson> recuperer_chansons(){
 		//Etape 5 : (Parcours Resultset)
 		while(rs.next()){
 			/*Affiche les données récupérées dans la BDD*/
-			/*System.out.println(rs.getString("titre")+ " " + 
+			System.out.println(rs.getString("titre")+ " " + 
 					rs.getString("artiste")+ " " + 
 					rs.getString("album")+ " " + 
 					rs.getString("style1")+ " " + 
@@ -398,14 +401,29 @@ public static ArrayList<Chanson> recuperer_chansons(){
 					rs.getTime("duree")+ " " + 
 					rs.getInt("rythme")+ " " + 
 					rs.getString("instrument"));
-			*/
+			
+			//On récupère les styles dans l'arraylist correspondant aux noms des styles dans la BDD
+			for(i=0; i<12; i++){
+				if(liste_g.get(i).nom.equals(rs.getString("style1")))	st1 =liste_g.get(i);
+				if(liste_g.get(i).nom.equals(rs.getString("style2")))	st2 =liste_g.get(i);
+				if(liste_g.get(i).nom.equals(rs.getString("style3")))	st3 =liste_g.get(i);
+				for(j=0; j<liste_g.get(i).nb_fils(); j++){
+					if(liste_g.get(i).fils.get(j).nom.equals(rs.getString("style1")))	st1 =liste_g.get(i).fils.get(j);
+					if(liste_g.get(i).fils.get(j).nom.equals(rs.getString("style2")))	st2 =liste_g.get(i).fils.get(j);
+					if(liste_g.get(i).fils.get(j).nom.equals(rs.getString("style3")))	st3 =liste_g.get(i).fils.get(j);
+					for(k=0; k<liste_g.get(i).fils.get(j).nb_fils(); k++){
+						if(liste_g.get(i).fils.get(j).fils.get(k).nom.equals(rs.getString("style1")))	st1 =liste_g.get(i).fils.get(j).fils.get(k);
+						if(liste_g.get(i).fils.get(j).fils.get(k).nom.equals(rs.getString("style2")))	st2 =liste_g.get(i).fils.get(j).fils.get(k);
+						if(liste_g.get(i).fils.get(j).fils.get(k).nom.equals(rs.getString("style3")))	st3 =liste_g.get(i).fils.get(j).fils.get(k);
+					}
+				}
+				
+			}
 			liste.add(new Chanson(rs.getInt("idCh"), 
 					rs.getString("titre"), 
 					rs.getString("artiste"), 
 					rs.getString("album"), 
-					rs.getString("style1"), 
-					rs.getString("style2"), 
-					rs.getString("style3"), 
+					st1, st2, st3,
 					rs.getString("theme"), 
 					rs.getTime("duree"), 
 					rs.getInt("rythme"), 
@@ -427,5 +445,7 @@ public static ArrayList<Chanson> recuperer_chansons(){
 	}
 	return liste;
 }
+
+
 }
 
