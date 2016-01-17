@@ -108,14 +108,22 @@ public class Genre extends Style implements Comparable<Genre> {
 		return res;
 		
 	}
-	
+
 	public String get_nomG(){	return nom;}
 
 	//--- COMPARAISON ---
-	public float comparerG(Genre s){
-		return this.dist_genres[s.idSS];
+	public float distG(Genre s){
+		float r = this.dist_genres[s.idSS];
+		if(this == s)r = 0;
+		return r;
 	}
 	
+	public float comparerG(Genre s){
+		float r = this.distG(s);
+		r = (float)(1-r/20);
+		if(r <0)	r = 0;
+		return r;
+	}
 	
 	public float comparer(Style s){
 		float result=0;
@@ -134,7 +142,9 @@ public class Genre extends Style implements Comparable<Genre> {
 				result += s.pere.idSS;
 				result += dist_genres[s.pere.pere.idSS];
 			}			
-		}		
+		}	
+		result = (float)(1-result/20);
+		if(result <0)	result = 0;
 		return result;
 	}
 }
