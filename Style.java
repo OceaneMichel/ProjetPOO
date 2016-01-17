@@ -34,6 +34,14 @@ public class Style implements Comparable<Genre>{
 		fils = new ArrayList<Style>();
 		dist_genres = new int[100];
 	}
+	
+	public Style copieS(Style s){
+		return (new Style(s.nom, s.idSS, s.pere));
+	}
+	
+	public Object clone(){
+		return new Style(this.nom, this.idSS, this.copieS(this.pere));
+	}
 	public void add_sstyle(Style s){
 		fils.add(s);
 	}
@@ -79,44 +87,63 @@ public class Style implements Comparable<Genre>{
 		return res;
 		
 	}
-	public float comparerG(Style s){
-		return this.dist_genres[s.idSS];
+	public float distG(Style s){
+		return ((Genre)this).dist_genres[s.idSS];
 	}
 	
 	/*
 	 * Fonction de comparaison : Sous-style avec un Genre
 	 */
 	public float comparer(Genre s){
-		float resultat;
+		float resultat=0;
 		//Cas 1 : Le père est un genre
 		if (this.pere.est_genre()){
 			//Cas 1-1 : Le père est le genre recherché
-			if (pere == s) resultat = idSS; 
+			if (pere == s) resultat += idSS; 
 			//Cas 1-2 : Le père n'est pas le genre recherché 
-			else resultat = idSS + ((Genre)pere).comparerG(s);
+			else resultat += idSS + (pere).distG(s);
 		}
-		else if (this.pere.pere.est_genre() && this.pere.pere == s)	resultat = idSS + pere.idSS;
-		//Cas 2 : Le père est un autre sous_style :
-		else resultat = idSS + pere.comparer(s); 
+		//Cas 2 : Le père n'est pas un genre
+		else{
+			//Cas 2-2 : Le grand-père est le genre recherché
+			if (this.pere.pere.est_genre() && this.pere.pere == s)	resultat += idSS + pere.idSS;
+			//Cas 2-3 : Le grand-père n'est pas le genre recherché 
+			else{
+				resultat += idSS;
+					if (pere.pere == s) resultat += idSS; 
+					else resultat += idSS + (pere.pere).distG(s);
+				}
+		}
+		
+
+		resultat = (float)(1-resultat/20);
+		if(resultat <0)	resultat = 0;
 		
 		return resultat;
 	}
 
 	public float comparer(Style s){
 		float res = 0;
-		if(this == s )	res = 0;
+		
+		if(this==null || s == null)	res = 1;
+		else if(this == s )	res = 0;
 		else if(a_pour_fils(s)!=-1)	res = s.idSS;
 		else if(s.a_pour_fils(this)!=-1)	res = this.idSS;
 		//S'ils ont le même père :
 		else if(this.pere == s.pere)	res = this.idSS + s.idSS;
 		//Cas les deux sont au niveau 3 : ils n'ont pas le même père
-		else if((!this.pere.est_genre()) && !s.pere.est_genre())	res += this.idSS + s.idSS + this.pere.comparer(s.pere);
-		else if((!this.pere.est_genre())&& s.pere.est_genre())	res += this.idSS + s.idSS + this.pere.comparer((Genre)s.pere);
-		else if((this.pere.est_genre())&&!s.pere.est_genre())	res += this.idSS + s.idSS + this.pere.comparer(s.pere);
+		else if((!this.pere.est_genre()) && !s.pere.est_genre()){
+			res += this.idSS + s.idSS + this.pere.idSS + s.pere.idSS + pere.pere.distG(s.pere.pere);
+		}
+		else if((!this.pere.est_genre())&& s.pere.est_genre())	res += this.idSS + s.idSS + this.pere.idSS + pere.pere.distG(s.pere);
+		else if((this.pere.est_genre())&&!s.pere.est_genre())	res += this.idSS + s.idSS + s.pere.idSS + pere.distG(s.pere.pere);
 		//Cas les deux sont au niveau 2 : ils n'ont pas le même père
 		else if((this.pere.est_genre())&&s.pere.est_genre()){
-			res += this.idSS + s.idSS + ((Genre)pere).comparerG((Genre)s.pere);
+			res += this.idSS + s.idSS + ((Genre)pere).distG((Genre)s.pere);
 		}
+		
+		res = 1-res/20;
+		if(res<=0)	res = 0;
 		return res;
 	}
 	
