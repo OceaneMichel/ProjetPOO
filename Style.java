@@ -14,6 +14,12 @@ public class Style implements Comparable<Genre>{
 	public ArrayList<Style> fils;
 	public int dist_genres[];
 	
+	public Style(){
+		nom = "null";
+		idSS = -1;
+		pere = this;
+		
+	}
 	public Style(String n, int id){
 		nom = n;
 		idSS = id;
@@ -96,8 +102,10 @@ public class Style implements Comparable<Genre>{
 	 */
 	public float comparer(Genre s){
 		float resultat=0;
-		//Cas 1 : Le père est un genre
-		if (this.pere.est_genre()){
+		if(this == s)	resultat =0; 
+		else if(this.est_genre())	resultat= ((Genre)this).dist_genres[s.idSS];
+			//Cas 1 : Le père est un genre
+		else if (this.pere.est_genre()){
 			//Cas 1-1 : Le père est le genre recherché
 			if (pere == s) resultat += idSS; 
 			//Cas 1-2 : Le père n'est pas le genre recherché 
@@ -125,8 +133,10 @@ public class Style implements Comparable<Genre>{
 	public float comparer(Style s){
 		float res = 0;
 		
-		if(this==null || s == null)	res = 1;
+		if(this==null || s == null || this.nom.equals("null") || s.nom.equals("null"))	res = 10000;
 		else if(this == s )	res = 0;
+		else if(this.est_genre()) return ((Genre)this).comparer(s);
+		if(s.est_genre())	return this.comparer((Genre)s);
 		else if(a_pour_fils(s)!=-1)	res = s.idSS;
 		else if(s.a_pour_fils(this)!=-1)	res = this.idSS;
 		//S'ils ont le même père :
