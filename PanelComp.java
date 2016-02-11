@@ -1,6 +1,7 @@
 package ihm;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -35,6 +36,14 @@ public class PanelComp  extends JPanel{
 	private JPanel resultats;
 	private Chanson selection1 = null;
 	private Chanson selection2 = null;
+	private JLabel labpcstyles = new JLabel("Styles :");
+	private JLabel labpcthemes = new JLabel("Themes :");
+	private JLabel labpcduree = new JLabel("Duree :");
+	private JLabel labpcannee = new JLabel("Année :");
+	private ProgressBar pb_styles = new ProgressBar();
+	private ProgressBar pb_themes = new ProgressBar();
+	private ProgressBar pb_duree = new ProgressBar();
+	private ProgressBar pb_annee = new ProgressBar();
 	public PanelComp(){
 		new JPanel();
 		setLayout(new FlowLayout());
@@ -48,6 +57,11 @@ public class PanelComp  extends JPanel{
 			lg = init.recuperer_arbre();
 			lc = init.recuperer_chansons(lg);
 			
+		resultats = new JPanel();
+		resultats.setLayout(new FlowLayout());
+		resultats.setPreferredSize(new Dimension(400, 150));
+		resultats.setBorder(loweredetched);
+		resultats.setVisible(false);
 			Collections.sort(lc,new Comparator(){
 
 				@Override
@@ -77,9 +91,43 @@ public class PanelComp  extends JPanel{
 		pBContent.add(liste2);
 		
 		/* On valide et on fait la comparaison */
-		
+		JPanel barreres = new JPanel();
+		barreres.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		barreres.setPreferredSize(new Dimension(300,20));
 		final JLabel resultlab = new JLabel();
 		valider = new JButton("Comparer");
+		pBContent.add(valider);
+		barreres.add(resultlab);
+		resultats.add(barreres);
+
+		JPanel barrestyles = new JPanel();
+		barrestyles.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		barrestyles.setPreferredSize(new Dimension(300,20));
+			barrestyles.add(labpcstyles);
+			barrestyles.add(pb_styles);
+			
+		JPanel barrethemes = new JPanel();
+		barrethemes.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		barrethemes.setPreferredSize(new Dimension(300,20));
+			barrethemes.add(labpcthemes);
+			barrethemes.add(pb_themes);			
+			
+		JPanel barreduree = new JPanel();
+		barreduree.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		barreduree.setPreferredSize(new Dimension(300,20));
+			barreduree.add(labpcduree);
+			barreduree.add(pb_duree);	
+			
+		JPanel barreannee = new JPanel();
+		barreannee.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		barreannee.setPreferredSize(new Dimension(300,20));
+			barreannee.add(labpcannee);
+			barreannee.add(pb_annee);
+			
+		resultats.add(barrestyles);
+		resultats.add(barrethemes);
+		resultats.add(barreduree);
+		resultats.add(barreannee);
 		valider.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -88,16 +136,20 @@ public class PanelComp  extends JPanel{
 					selection2 = lc.get(list2.getSelectedIndex());
 					System.out.println(selection1.titre);
 					System.out.println(selection2.titre);
+					resultats.setVisible(true);
+					pb_styles.setProgressBar(selection1.comparer_styles(selection2));
+					pb_themes.setProgressBar(selection1.comparer_theme(selection2));
+					pb_duree.setProgressBar(selection1.comparer_duree(selection2));
+					pb_annee.setProgressBar(selection1.comparer_annee(selection2));
+
+					
 					System.out.print(selection1.comparer(selection2));
-					resultlab.setText(String.format("Les Chansons sont similaires à %.2f %%!", selection1.comparer(selection2)*100));
+					resultlab.setText(String.format("<html><b>Les Chansons sont similaires à %.2f %%</b></html>!", selection1.comparer(selection2)*100));
 				}
 			}
 		});
 		
-		pBContent.add(valider);
-		resultats = new JPanel();
-		resultats.setPreferredSize(new Dimension(400, 100));
-		resultats.add(resultlab);
+
 		
 		add(BorderLayout.CENTER,pBContent);
 		add(BorderLayout.CENTER,resultats);
